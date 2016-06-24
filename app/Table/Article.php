@@ -1,7 +1,18 @@
 <?PHP
 namespace App\Table;
 
+use App\App;
+
 class Article {
+    
+    public static function getLast() {
+        return App::getDb()->query("
+                        SELECT articles.id, articles.titre, articles.contenu, categories.titre as categorie
+                        FROM articles 
+                        LEFT JOIN categories 
+                            ON articles.category_id = categories.id
+                    ", __CLASS__); 
+    }
     
     public function __get($key) {
         $method = 'get' . ucfirst($key);
