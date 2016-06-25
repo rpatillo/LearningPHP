@@ -4,14 +4,11 @@ namespace App\Table;
 
 use App\App;
 
-class Categorie {
+class Categorie extends Table {
     
-    private static $table = 'categories';
-    
-    public static function all() {
-            return App::getDb()->query("
-                    SELECT *
-                    FROM " . self::$table . "
-                ", __CLASS__); 
+    protected static $table = 'categories';
+
+    public function getUrl() {
+        return 'index.php?p=categorie&id=' . $this->id;
     }
 }

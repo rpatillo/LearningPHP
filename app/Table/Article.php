@@ -3,23 +3,38 @@ namespace App\Table;
 
 use App\App;
 
-class Article {
-    
+class Article extends Table{
+
+
+    protected static $table = 'articles';
+
+
+    public static function find($id) {
+        return self::query("
+                        SELECT articles.id, articles.titre, articles.contenu, categories.titre as categorie
+                        FROM articles 
+                        LEFT JOIN categories ON articles.category_id = categories.id
+                        WHERE articles.id = ?
+                ", [$id], true);
+    }
+
     public static function getLast() {
-        return App::getDb()->query("
+        return self::query("
+                        SELECT articles.id, articles.titre, articles.contenu, categories.titre as categorie
+                        FROM articles 
+                        LEFT JOIN categories ON articles.category_id = categories.id
+                    "); 
+    }
+
+    public static function lastByCategory($category_id) {
+        return self::query("
                         SELECT articles.id, articles.titre, articles.contenu, categories.titre as categorie
                         FROM articles 
                         LEFT JOIN categories 
                             ON articles.category_id = categories.id
-                    ", __CLASS__); 
+                        WHERE category_id = ?
+                    ", [$category_id]); 
     }
-    
-    public function __get($key) {
-        $method = 'get' . ucfirst($key);
-        $this->$key = $this->$method();
-        return $this->$key;
-    }
-
 
     public function getUrl() {
         return 'index.php?p=article&id=' . $this->id;
@@ -30,4 +45,5 @@ class Article {
         $html .= '<p><a href="' . $this->getUrl() . '">Voir la suite</a></p>';
         return $html;
     }
+
 }

@@ -21,10 +21,15 @@ class Database {
         return $this->pdo;
     }
 
-    public function query($stmt, $class_name) {
+    public function query($stmt, $class_name, $one = false) {
         $req = $this->getPDO()->query($stmt);
-        $datas = $req->fetchAll(PDO::FETCH_CLASS, $class_name);
-        return $datas;
+        $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        if ($one) {
+            $data = $req->fetch();
+        } else {
+            $data = $req->fetchAll();
+        }
+        return $data;
     }
 
     public function prepare($stmt, $attributes, $class_name, $one = false) {
