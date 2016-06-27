@@ -3,8 +3,21 @@ namespace App;
 
 class App {
 
-    private static $database;
+    private static $_instance;
+
     private static $title = 'Blog de ouf';
+
+    public static function getInstance() {
+        if (is_null(self::$_instance)) {
+            self::$_instance = new App();
+        }
+        return self::$_instance;
+    }
+
+
+//    ----------------
+
+    private static $database;
 
     public static function getDb() {
         if (self::$database === NULL) {
