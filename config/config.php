@@ -2,6 +2,6 @@
 
 return array(
 
-    "db_user" => "root";
+    "db_name" => "blog.db"
     
 );

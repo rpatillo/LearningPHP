@@ -13,7 +13,7 @@ function var_dump_pre($mixed = null) {
 <div class="row">
     <div class="col-sm-8">
     
-        <?PHP foreach(\App\Table\Article::getLast() as $post) : ?>
+        <?PHP foreach(App::getInstance()->getTable('Post')->last() as $post) : ?>
     
             <h2><a href="<?= $post->url ?>"><?= $post->titre; ?></a></h2>
     
@@ -29,7 +29,7 @@ function var_dump_pre($mixed = null) {
         
         <ul>
     
-            <?PHP foreach(\App\Table\Categorie::all() as $categorie) : ?>
+            <?PHP foreach(App::getInstance()->getTable('Category')->all() as $categorie) : ?>
             
                 <li><a href="<?= $categorie->url; ?>"><?= $categorie->titre; ?></a></li>
         

@@ -1,22 +1,19 @@
 <?PHP
-date_default_timezone_set('Europe/Paris');
-require '../app/Autoloader.php';
-App\Autoloader::register();
+define('ROOT', dirname(__DIR__));
+//date_default_timezone_set('Europe/Paris');
 
-if (isset($_GET['p'])) {
-    $p = $_GET['p'];
+require ROOT . '/app/App.php';
+App::load();
+
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
 } else {
-    $p = 'home';
+    $page = 'home';
 }
 
 ob_start();
-if ($p === 'home') {
-    require '../pages/home.php';
-} elseif ($p === 'article') {
-    require '../pages/single.php';
-} elseif ($p === 'categorie') {
-    require '../pages/categorie.php';
+if ($page === 'home') {
+    require ROOT . '/pages/articles/home.php';
 }
-
 $content = ob_get_clean();
-require '../pages/template/default.php';
+require ROOT . '/pages/template/default.php';

@@ -1,9 +1,9 @@
 <?PHP
-namespace App;
+namespace Core\Database;
 
 use \PDO;
 
-class Database {
+class SqliteDatabase extends Database{
 
     private $db_name;
     private $pdo;
@@ -21,9 +21,13 @@ class Database {
         return $this->pdo;
     }
 
-    public function query($stmt, $class_name, $one = false) {
+    public function query($stmt, $class_name = NULL, $one = false) {
         $req = $this->getPDO()->query($stmt);
-        $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        if ($class_name === NULL) {
+            $req->setFetchMode(PDO::FETCH_OBJ);
+        } else {
+            $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        }
         if ($one) {
             $data = $req->fetch();
         } else {
