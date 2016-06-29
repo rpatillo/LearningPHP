@@ -8,7 +8,7 @@ class App {
     private static $_instance;
     private $db_instance;
 
-    private static $title = 'Blog de ouf';
+    public $title = 'Blog de ouf';
 
     public static function getInstance() {
         if (is_null(self::$_instance)) {
@@ -53,9 +53,9 @@ class App {
 //        header('Location:index.php?p=404');
 //    }
 //
-//    public static function getTitle() {
-//        return self::$title;
-//    }
+    public static function getTitle() {
+        return self::$title;
+    }
 //
 //    public static function setTitle($title) {
 //        self::$title = $title . ' | ' . self::$title;
