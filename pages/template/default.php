@@ -22,6 +22,7 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="index.php">Test</a>
+          <a class="navbar-brand" href="index.php"><?= ucfirst($_SESSION['auth']); ?></a>
         </div>
       </div>
     </nav>
@@ -32,7 +33,7 @@
         <?= $content; ?>
       </div>
 
-    </div><!-- /.container -->
+    </div>
 
   </body>
 </html>

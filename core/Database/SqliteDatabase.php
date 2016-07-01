@@ -36,10 +36,14 @@ class SqliteDatabase extends Database{
         return $data;
     }
 
-    public function prepare($stmt, $attributes, $class_name, $one = false) {
+    public function prepare($stmt, $attributes, $class_name = NULL, $one = false) {
         $req = $this->getPDO()->prepare($stmt);
         $req->execute($attributes);
-        $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        if ($class_name === NULL) {
+            $req->setFetchMode(PDO::FETCH_OBJ);
+        } else {
+            $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        }
         if ($one) {
             $data = $req->fetch();
         } else {
